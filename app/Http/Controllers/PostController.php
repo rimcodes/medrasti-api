@@ -47,6 +47,10 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
+    public function post($id) {
+        return Post::finsOrFail('ID', $id);
+    }
+
     /**
      * Display a listing of the resource.
      */

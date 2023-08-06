@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/posts', [PostController::class, 'posts']);
+Route::get('/posts/id/{id}', [PostController::class, 'post']);
 
 Route::get('/posts/{type}', [PostController::class, 'index']);
 
