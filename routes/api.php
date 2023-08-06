@@ -33,6 +33,7 @@ Route::get('/lessons/{id}', [PostController::class, 'lessons']);
 Route::get('/meta/{id}', [CourseMetaController::class, 'index']);
 
 Route::get('/thumbnail/{id}', [PostMetaController::class, 'thumbnail']);
+Route::get('/video/{id}', [PostMetaController::class, 'video']);
 
 
 

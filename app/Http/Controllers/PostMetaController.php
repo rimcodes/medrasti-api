@@ -18,4 +18,10 @@ class PostMetaController extends Controller
         $attachement = Post::get()->where('ID', $meta)->value('guid');
         return $attachement;
     }
+
+    public function video($id) {
+        $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_video')->value('meta_value');
+        $video = unserialize($meta);
+        return $video['source_youtube'];
+    }
 }
