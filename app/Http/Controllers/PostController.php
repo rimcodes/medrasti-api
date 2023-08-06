@@ -48,7 +48,7 @@ class PostController extends Controller
     }
 
     public function post($id) {
-        return Post::finsOrFail('ID', $id);
+        return Post::get()->where('ID', $id)->first();
     }
 
     /**

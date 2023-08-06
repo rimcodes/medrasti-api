@@ -15,7 +15,7 @@ class PostMetaController extends Controller
         // $thumbnail_id = $thumbnail['meta_value'];
         // $attachement = Post::findOrFail($thumbnail_id);
         $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_thumbnail_id')->value('meta_value');
-        $attachement = Post::findOrFail($meta)->value('guid');
+        $attachement = Post::get()->where('ID', $meta)->value('guid');
         return $attachement;
     }
 }
