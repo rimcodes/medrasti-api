@@ -29,6 +29,7 @@ Route::get('/', function () {
 });
 
 Route::get('/lessons/{id}', [PostController::class, 'lessons']);
+Route::get('/topics/{id}', [PostController::class, 'topics']);
 
 Route::get('/meta/{id}', [CourseMetaController::class, 'index']);
 
