@@ -20,22 +20,7 @@ class PostController extends Controller
 
         $posts = Post::get()->where('post_type', $type)->where('post_status', 'publish');
 
-
-        // $thumbnail = PostMeta::get()->where('post_id', $id)->where('meta_key', '_thumbnail_id')->value('meta_value);
-        // $thumbnail_id = $thumbnail['meta_value'];
-        // $attachement = Post::findOrFail($thumbnail_id);
-        // foreach ($posts as $key => $key_value) {
-        //     // $meta = PostMeta::get()->where('post_id', $key_value['ID'])->where('meta_key', '_thumbnail_id')->value('meta_value');
-        //     // $attachement = Post::findOrFail($meta)->value('guid');
-        //     // echo $attachement;
-        //     // $key_value['guid'] = "img.png";
-        // }
-
         return response()->json($posts);
-    }
-
-    public function loadThumbnails() {
-
     }
 
     public function posts()
@@ -49,6 +34,26 @@ class PostController extends Controller
 
     public function post($id) {
         return Post::get()->where('ID', $id)->first();
+    }
+
+    public function course($id) {
+        $meta = PostMeta::get()->where('post_id', $id);
+        $metaValues = [];
+        $course = Post::get()->where('ID', $id)->first();
+
+        foreach ($meta as $key => $value) {
+            $metaValues[$value['meta_key']] = $value['meta_value'];
+        }
+        $attachement = Post::get()->where('ID', $metaValues['_thumbnail_id'])->value('guid');
+        // $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_video')->value('meta_value');
+        $video = unserialize($metaValues['_video'])['source_youtube'];
+
+        // set up for meta data collected
+        $course['thumbnail'] = $attachement;
+        $course['video'] = $video;
+
+        return $course;
+
     }
 
     /**

@@ -24,9 +24,7 @@ Route::get('/posts/id/{id}', [PostController::class, 'post']);
 
 Route::get('/posts/{type}', [PostController::class, 'index']);
 
-Route::get('/', function () {
-    return "Api working!";
-});
+Route::get('/courses/{id}', [PostController::class, 'course']);
 
 Route::get('/lessons/{id}', [PostController::class, 'lessons']);
 Route::get('/topics/{id}', [PostController::class, 'topics']);
