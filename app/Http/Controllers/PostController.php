@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index($type)
     {
 
-        $posts = Post::get()->where('post_type', $type)->where('post_status', 'publish');
+        $posts = Post::where('post_type', $type)->where('post_status', 'publish')->orderBy('ID', 'DESC')->get();
 
         return response()->json($posts);
     }
