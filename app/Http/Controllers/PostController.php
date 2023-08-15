@@ -74,12 +74,13 @@ class PostController extends Controller
         }
         // $attachement = Post::get()->where('ID', $metaValues['_thumbnail_id'])->value('guid');
         // $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_video')->value('meta_value');
-        $video = unserialize($metaValues['_video'])['source_youtube'];
 
         // set up for meta data collected
         // $course['thumbnail'] = $attachement;
-        $course['video'] = $video;
-
+        if (array_key_exists('_video', $metaValues)) {
+            $video = unserialize($metaValues['_video'])['source_youtube'];
+            $course['video'] = $video;
+        }
         return $course;
 
     }
