@@ -61,7 +61,7 @@ class PostController extends Controller
      */
     public function lessons($id)
     {
-        return Post::get()->where('post_type', 'lesson')->where('post_parent', $id);
+        return Post::get()->where('post_type', 'lesson')->where('post_parent', $id)->first();
     }
     public function topics($id)
     {
