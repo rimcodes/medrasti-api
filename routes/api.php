@@ -27,6 +27,7 @@ Route::get('/posts/{type}', [PostController::class, 'index']);
 Route::get('/courses/{id}', [PostController::class, 'course']);
 
 Route::get('/lessons/{id}', [PostController::class, 'lessons']);
+Route::get('/lessons/id/{id}', [PostController::class, 'singlelesson']);
 Route::get('/topics/{id}', [PostController::class, 'topics']);
 
 Route::get('/meta/{id}', [CourseMetaController::class, 'index']);

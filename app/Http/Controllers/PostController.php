@@ -63,6 +63,26 @@ class PostController extends Controller
     {
         return Post::get()->where('post_type', 'lesson')->where('post_parent', $id);
     }
+
+    public function singlelesson($id) {
+        $meta = PostMeta::get()->where('post_id', $id);
+        $metaValues = [];
+        $course = Post::get()->where('ID', $id)->first();
+
+        foreach ($meta as $key => $value) {
+            $metaValues[$value['meta_key']] = $value['meta_value'];
+        }
+        // $attachement = Post::get()->where('ID', $metaValues['_thumbnail_id'])->value('guid');
+        // $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_video')->value('meta_value');
+        $video = unserialize($metaValues['_video'])['source_youtube'];
+
+        // set up for meta data collected
+        // $course['thumbnail'] = $attachement;
+        $course['video'] = $video;
+
+        return $course;
+
+    }
     public function topics($id)
     {
         return Post::get()->where('post_type', 'topics')->where('post_parent', $id);
