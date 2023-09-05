@@ -19,10 +19,23 @@ class PostMetaController extends Controller
         return $attachement;
     }
 
-    public function video($id) {
+    public function video($id)
+    {
         $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_video')->value('meta_value');
         $video = unserialize($meta);
 
         return $video['source_youtube'];
     }
+
+    function preview($id) {
+        $meta = PostMeta::get()->where('post_id', $id)->where('meta_key', '_is_preview')->value('meta_value');
+        $previewed = unserialize($meta);
+
+        return $previewed;
+    }
+
+    // "meta_id": 7421,
+    // "post_id": 8254,
+    // "meta_key": "_tutor_course_price_type",
+    // "meta_value": "free"
 }

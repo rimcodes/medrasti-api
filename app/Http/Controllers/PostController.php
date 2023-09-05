@@ -77,6 +77,14 @@ class PostController extends Controller
 
         // set up for meta data collected
         // $course['thumbnail'] = $attachement;
+        if (array_key_exists('_is_preview', $metaValues)) {
+            $course['is_preview'] = $metaValues['_is_preview'];
+
+        } else {
+            $course['is_preview'] = "0";
+
+        }
+
         if (array_key_exists('_video', $metaValues)) {
             $video = unserialize($metaValues['_video'])['source_youtube'];
             $course['video'] = $video;
