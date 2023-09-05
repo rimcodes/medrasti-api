@@ -26,7 +26,7 @@ class PostController extends Controller
     public function posts()
     {
 
-        $posts = Post::all();
+        $posts = Post::get();
 
 
         return response()->json($posts);
@@ -61,7 +61,25 @@ class PostController extends Controller
      */
     public function lessons($id)
     {
-        return Post::get()->where('post_type', 'lesson')->where('post_parent', $id);
+        $lessons = Post::get()->where('post_type', 'lesson')->where('post_parent', $id);
+
+        foreach ($lessons as $key => $lesson) {
+            $meta = PostMeta::get()->where('post_id', $id);
+            $metaValues = [];
+            foreach ($meta as $key => $field) {
+                $metaValues[$field['meta_key']] = $field['meta_value'];
+
+                if (array_key_exists('_is_preview', $metaValues)) {
+                    $lesson['is_preview'] = $metaValues['_is_preview'];
+
+                } else {
+                    $lesson['is_preview'] = "0";
+
+                }
+            }
+        }
+
+        return $lessons;
     }
 
     public function singlelesson($id) {
