@@ -32,11 +32,13 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
-    public function post($id) {
+    public function post($id)
+    {
         return Post::get()->where('ID', $id)->first();
     }
 
-    public function course($id) {
+    public function course($id)
+    {
         $meta = PostMeta::get()->where('post_id', $id);
         $metaValues = [];
         $course = Post::get()->where('ID', $id)->first();
@@ -64,25 +66,24 @@ class PostController extends Controller
         $lessons = Post::get()->where('post_type', 'lesson')->where('post_parent', $id);
 
         foreach ($lessons as $key => $lesson) {
-            $meta = PostMeta::get()->where('post_id', $id);
-            $metaValues = [];
-            foreach ($meta as $key => $field) {
-                $metaValues[$field['meta_key']] = $field['meta_value'];
+            $meta = PostMeta::get()->where('post_id', $lesson['ID'])->where('meta_key', '_is_preview')->value('meta_value');
 
-                if (array_key_exists('_is_preview', $metaValues)) {
-                    $lesson['is_preview'] = $metaValues['_is_preview'];
 
-                } else {
-                    $lesson['is_preview'] = "0";
+            if ($meta) {
+                $lesson['is_preview'] = $meta;
 
-                }
+            } else {
+                $lesson['is_preview'] = "0";
+
             }
+
         }
 
         return $lessons;
     }
 
-    public function singlelesson($id) {
+    public function singlelesson($id)
+    {
         $meta = PostMeta::get()->where('post_id', $id);
         $metaValues = [];
         $course = Post::get()->where('ID', $id)->first();
